@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name Send to OmniFocus from Pivotal Tracker
-// @version 1.1
+// @version 1.2
 // @description Adds a button to every Pivotal Tracker story, that opens the OmniFocus quick entry bar with the story title and URL filled in.
 // @icon icon128.png
-// @match https://www.pivotaltracker.com/s/projects/*
+// @match https://www.pivotaltracker.com/n/projects/*
 // @require http://code.jquery.com/jquery-1.7.2.min.js
 // ==/UserScript==
 
@@ -14,10 +14,10 @@ jQuery(function($) {
            '-webkit-border-radius: 5px; -moz-border-radius: 5px; border: solid 2px #fff;" '+
     'onmousedown=\\\''+
     'var item=jQuery(this).closest(".item");'+
-    'var id = item.find(".copy_id input.id").val();'+
+    'var id = item.find(".text_value").val();'+
     'var title = item.find("textarea[name=\\\\\\\"story[name]\\\\\\\"]").val();'+
     'var projectName = jQuery("header.project h2 a").text();'+
-    'jQuery(this).attr("href", "omnifocus:///add?name="+encodeURIComponent(projectName+" - "+title)+"&note="+encodeURIComponent("https://www.pivotaltracker.com/story/show/"+id));'+
+    'jQuery(this).attr("href", "omnifocus:///add?name="+encodeURIComponent("#"+id+" - "+title)+"&note="+encodeURIComponent("https://www.pivotaltracker.com/story/show/"+id));'+
     'return true;'+
     '\\\'>&#x2713; Send to OmniFocus</a></div>';
 
@@ -26,13 +26,13 @@ jQuery(function($) {
 
 
   elt.innerHTML =
-    "var storyWithoutOmnifocus = window.JST['templates/stories/form'];"+
+    "var storyWithoutOmnifocus = window.JST['templates/details/controls/show'];"+
 
     "var storyWithOmnifocus = function() {"+
     "var html = storyWithoutOmnifocus.apply(this, arguments);"+
-    "return html.replace('<fieldset class=\"story info\">', ' "+omnifocusButton+" ' + '<fieldset class=\"story info\">');"+
+    "return html.replace('<section class=\"controls\">', ' "+omnifocusButton+" ' + '<section class=\"controls\">');"+
   "};"+
-  "window.JST['templates/stories/form'] = storyWithOmnifocus;";
+  "window.JST['templates/details/controls/show'] = storyWithOmnifocus;";
 
   document.head.appendChild(elt);
 });

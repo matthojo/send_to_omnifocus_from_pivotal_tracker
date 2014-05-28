@@ -1,7 +1,7 @@
 {
   "name": "Send to OmniFocus from Pivotal Tracker",
-  "version": "1.1",
-  "manifest_version": 2,
+  "version": "2.0",
+  "manifest_version": 3,
   "icons": {
     "16": "icon16.png",
     "64": "icon64.png",
@@ -10,7 +10,7 @@
   "description": "Adds a button to every Pivotal Tracker story, that opens the OmniFocus quick entry bar with the story title and URL filled in.",
   "content_scripts": [
     {
-      "matches": ["https://www.pivotaltracker.com/s/projects/*"],
+      "matches": ["https://www.pivotaltracker.com/n/projects/*"],
       "js": ["jquery.js", "send_to_omnifocus_from_pivotal_tracker.user.js"]
     }
   ]
